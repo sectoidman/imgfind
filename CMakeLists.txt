@@ -20,10 +20,9 @@
 #
 
 cmake_minimum_required (VERSION 2.6)
-project (imgfind)
-link_directories ( /usr/lib )
-include_directories ( /usr/include )
 set ( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} . )
+
+project (imgfind)
 
 add_subdirectory (kernel)
 add_subdirectory (docs)

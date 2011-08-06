@@ -21,7 +21,7 @@
 
 #include <stdio.h>
 #include <sys/types.h>
-#include <pHash.h>
+#include "kernel/search.h"
 
 int
 main (int argc, char **argv)
