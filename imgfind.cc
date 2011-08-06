@@ -21,11 +21,14 @@
 
 #include <stdio.h>
 #include <sys/types.h>
+#include <pHash.h>
 
 int
 main (int argc, char **argv)
 {
   /* do the work */
+
+  printf("pHash Version: %s\n", ph_about());
 
   return 0;
 }
