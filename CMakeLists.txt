@@ -20,18 +20,19 @@
 #
 
 cmake_minimum_required (VERSION 2.6)
-set ( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} . )
+set ( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ./cmake )
 
 project (imgfind)
+set ( imgfind_VERSION_MAJOR 0 )
+set ( imgfind_VERSION_MINOR 1 )
 
-add_subdirectory (kernel)
-add_subdirectory (docs)
-
-set ( SOURCES imgfind.cc )
+set ( SOURCES imgfind.cc kernel/search.cc )
 
 set ( CMAKE_CXX_FLAGS "-Wall -g" )
 
 find_package ( pHash REQUIRED )
+find_package ( Boost REQUIRED )
 
 add_executable( imgfind ${SOURCES} )
-target_link_libraries (imgfind pHash)
+target_link_libraries (imgfind pHash boost_system boost_filesystem)
+

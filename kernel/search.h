@@ -21,5 +21,10 @@
 #ifndef SEARCH_H
 #define	SEARCH_H 
 
+/* searches a given directory and generates a list of image files */
+int cr_imglist(const char* path);
+
+int hash_imglist(const char* list);
+
 #endif	/* SEARCH_H */
 

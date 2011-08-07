@@ -19,4 +19,38 @@
  */
 
 #include <pHash.h>
+#include <boost/filesystem.hpp>
 #include "search.h"
+
+namespace fs = boost::filesystem;
+
+/* 
+  cr_imglist() - Searches a given directory and generates a list of image files 
+                 Returns -1 on non-existent path.
+                 Returns 0 otherwise.
+*/
+
+int cr_imglist(const char* path) 
+{
+    fs::path searchdir;
+    
+    if (fs::is_directory(searchdir)) {
+        //search the directory and any subdirectory for image files
+        return 0;      
+    } else if (fs::exists(searchdir)) {     
+        //check if file is valid image file and return path to it
+        return 0;
+    } else {   
+        return -1;
+    }
+            
+}
+
+/* 
+  hash_imglist() - Given a list of images, generates hashes of them
+*/
+
+int hash_imglist(const char* list) 
+{
+    return 0;
+}
