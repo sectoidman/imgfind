@@ -20,7 +20,7 @@
 #
 
 cmake_minimum_required (VERSION 2.6)
-set ( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ./cmake )
+set ( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 project (imgfind)
 set ( imgfind_VERSION_MAJOR 0 )

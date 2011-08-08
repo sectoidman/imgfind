@@ -21,8 +21,24 @@
 #ifndef SEARCH_H
 #define	SEARCH_H 
 
-/* searches a given directory and generates a list of image files */
+/*
+  cr_imglist()
+ 
+ Generates list of image files located in a given path if
+ the path given is a directory or single image file.
+
+ Returns -1 on non-existent or invalid path.
+ Returns 0 otherwise.
+*/
+
 int cr_imglist(const char* path);
+
+/* 
+  hash_imglist()
+ 
+ Given a list of images, generates hashes of them.
+ 
+*/
 
 int hash_imglist(const char* list);
 
