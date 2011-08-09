@@ -24,7 +24,7 @@
 int main (int argc, char **argv)
 {
   /* do the work */
-    cr_imglist("test");
+    cr_imglist("/mnt/shared");
   return 0;
 }
 

@@ -34,5 +34,5 @@ find_package ( pHash REQUIRED )
 find_package ( Boost REQUIRED )
 
 add_executable( imgfind ${SOURCES} )
-target_link_libraries (imgfind pHash boost_system boost_filesystem)
+target_link_libraries (imgfind pHash boost_system boost_filesystem boost_regex)
 
