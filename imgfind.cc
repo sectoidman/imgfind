@@ -20,11 +20,12 @@
 */
 
 #include "kernel/search.h"
+#include <iostream>
 
 int main (int argc, char **argv)
 {
   /* do the work */
-    cr_imglist("/mnt/shared");
-  return 0;
+    cr_imglist("/mnt/shared/");
+    return 0;
 }
 

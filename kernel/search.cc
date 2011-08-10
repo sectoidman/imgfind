@@ -23,20 +23,22 @@
 #include <boost/regex.hpp>
 #include "search.h"
 
+using namespace std;
 namespace fs = boost::filesystem;
 
 /* 
   cr_imglist()
  
- Searches a given directory and generates a list of image files
+ Searches a given directory recursively and generates a list of image files
  by checking file extensions.
  
  TODO: Add more robust detection code using libmagic or portable equivalent.
 
 */
 
-int cr_imglist(const char* path) 
+vector<string> cr_imglist(const char* path) 
 {
+    vector<string> imglist;
     fs::path search_dir(path);
     boost::regex search_criteria("\.(gif|jpg|jpeg|png|bmp)$", 
                                  boost::regex::perl|boost::regex::icase);
@@ -48,19 +50,18 @@ int cr_imglist(const char* path)
         for (/* itr */; itr != end; ++itr) {
             
             if (boost::regex_search(itr->leaf(), search_criteria)) {
-                printf("%s\n", itr->string().c_str());
+                imglist.push_back(itr->string());
             }
         }
         
-        return 0;      
+        return imglist;      
     } else if (fs::exists(search_dir)) {
         //check if file is valid image file and return path to it
         
-        return 0;
+        return imglist;
     } else {   
-        return -1;
+        return imglist;
     }
-            
 }
 
 /* 
@@ -70,7 +71,7 @@ int cr_imglist(const char* path)
  
 */
 
-int hash_imglist(const char* list) 
+map<string, DP> hash_imglist(const char* list) 
 {
-    return 0;
+    //nothing yet
 }

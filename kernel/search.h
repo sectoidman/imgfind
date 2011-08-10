@@ -21,17 +21,21 @@
 #ifndef SEARCH_H
 #define	SEARCH_H 
 
+#include <vector>
+#include <string>
+#include <map>
+#include <pHash.h>
+
 /*
   cr_imglist()
  
  Generates list of image files located in a given path if
  the path given is a directory or single image file.
-
- Returns -1 on non-existent or invalid path.
- Returns 0 otherwise.
+ 
+ Returns a vector of string objects containing file paths.
 */
 
-int cr_imglist(const char* path);
+std::vector<std::string> cr_imglist(const char* path);
 
 /* 
   hash_imglist()
@@ -40,7 +44,7 @@ int cr_imglist(const char* path);
  
 */
 
-int hash_imglist(const char* list);
+std::map<std::string, DP> hash_imglist(std::vector<std::string> list);
 
 #endif	/* SEARCH_H */
 
