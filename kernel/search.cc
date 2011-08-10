@@ -71,7 +71,37 @@ vector<string> cr_imglist(const char* path)
  
 */
 
-map<string, DP> hash_imglist(const char* list) 
+vector<DP> hash_imglist(vector<string> imglist, int htype) 
 {
     //nothing yet
+}
+
+
+/*
+ hash_image()
+ 
+ Given a single image generate a hash of it
+ 
+*/
+
+DP* hash_image(const char* path, int htype)
+{
+    
+}
+
+
+/*
+ find_similar()
+ 
+ Given a list of data points (hashes + file names), generate a list of files
+ which have a similarity to the criteria hash within the range 
+ (dependent on hash function used) specified.
+ 
+*/
+
+vector<string> find_similar(DP* criteria, 
+                            vector<DP> hashlist, 
+                            float range) 
+{
+    
 }

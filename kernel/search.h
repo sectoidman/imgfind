@@ -32,19 +32,71 @@
  Generates list of image files located in a given path if
  the path given is a directory or single image file.
  
+ Parameters:
+              path -
+ 
  Returns a vector of string objects containing file paths.
 */
 
 std::vector<std::string> cr_imglist(const char* path);
+
 
 /* 
   hash_imglist()
  
  Given a list of images, generates hashes of them.
  
+ Parameters:
+              list -
+                
+              htype -
+ 
+ Returns
+ 
 */
 
-std::map<std::string, DP> hash_imglist(std::vector<std::string> list);
+std::vector<DP> hash_imglist(std::vector<std::string> list, int htype);
+
+
+/*
+ hash_image()
+ 
+ Given a single image, generate a hash of it.
+ 
+*/
+
+DP* hash_image(const char* path, int htype);
+
+
+/*
+ find_similar()
+ 
+ Given a list of data points (hashes + file names), generate a list of files
+ which have a similarity to the criteria hash within the range 
+ (dependent on hash function used) specified.
+ 
+ Parameters:
+              criteria - pointer to a 'datapoint' (struct defined in pHash.h)
+                         that everything will be compared against.
+ 
+              list     - a vector containing datapoints that will be checked
+                         against the criteria given.
+              
+              range    - a float which gives the threshold similarity for the
+                         different hashes:
+                         
+               discrete cosine transform - hamming distance (default 26)
+               radial / radish           - PCC              (default 0.85)
+               Marr                      - hamming distance (default 0.40)
+ 
+ Returns a vector containing the filenames which were within the specified
+ range.
+ 
+*/
+
+std::vector<string> find_similar(DP* criteria, 
+                                 std::vector<DP> list, 
+                                 float range);
 
 #endif	/* SEARCH_H */
 
