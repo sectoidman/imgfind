@@ -53,9 +53,15 @@ std::vector<std::string> cr_imglist(const char* path);
  
  Returns
  
+ NOTE: DPs are managed with ph_malloc_dp() and ph_free_dp(); however,
+       these do not free the (dynamically-allocated) hash and id members
+       of that struct. Further, they use the malloc() and free() functions
+       from C, which are not compatible with C++'s new and free keywords;
+       keep that in mind.
+ 
 */
 
-std::vector<DP> hash_imglist(std::vector<std::string> list, int htype);
+std::vector<DP*> hash_imglist(std::vector<std::string> list, int htype);
 
 
 /*
@@ -86,7 +92,7 @@ DP* hash_image(const char* path, int htype);
                          different hashes:
                          
                discrete cosine transform - hamming distance (default 26)
-               radial / radish           - PCC              (default 0.85)
+               radial / radish           - PCC              (default 0.85) (0-1)
                Marr                      - hamming distance (default 0.40)
  
  Returns a vector containing the filenames which were within the specified
@@ -95,7 +101,7 @@ DP* hash_image(const char* path, int htype);
 */
 
 std::vector<string> find_similar(DP* criteria, 
-                                 std::vector<DP> list, 
+                                 std::vector<DP*> list, 
                                  float range);
 
 #endif	/* SEARCH_H */

@@ -25,7 +25,17 @@
 int main (int argc, char **argv)
 {
   /* do the work */
-    cr_imglist("/mnt/shared/");
+    DP* img;
+    vector<DP*> templist;
+    vector<string> matches;
+    
+    templist = hash_imglist(cr_imglist("/mnt/shared/"), 0);
+    img = hash_image("/mnt/shared/kitty.gif", 0);
+    matches = find_similar(img, templist, 26);
+    
+    for (uint i = 0; i < matches.size(); i++)
+        cout << matches[i] << std::endl;
+    
     return 0;
 }
 
