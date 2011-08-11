@@ -16,6 +16,7 @@
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+ 
  */
 
 #include <pHash.h>
@@ -40,14 +41,15 @@ vector<string> cr_imglist(const char* path)
 {
     vector<string> imglist;
     fs::path search_dir(path);
-    boost::regex search_criteria("\.(gif|jpg|jpeg|png|bmp)$", 
+    boost::regex search_criteria(".(gif|jpg|jpeg|png|bmp)$", 
                                  boost::regex::perl|boost::regex::icase);
     
     if (fs::is_directory(search_dir)) {
-        fs::recursive_directory_iterator itr(search_dir);
         fs::recursive_directory_iterator end;
         
-        for (/* itr */; itr != end; ++itr) {
+        for (fs::recursive_directory_iterator itr(search_dir); 
+             itr != end; 
+             ++itr) {
             
             if (boost::regex_search(itr->leaf(), search_criteria)) {
                 imglist.push_back(itr->string());
@@ -75,7 +77,7 @@ vector<string> cr_imglist(const char* path)
  
 */
 
-vector<DP*> hash_imglist(vector<string> imglist, int htype) 
+vector<DP*> hash_imglist(vector<string> imglist, uint htype) 
 {
     uint imglist_sz = imglist.size();
     ulong64* hash;
@@ -93,7 +95,8 @@ vector<DP*> hash_imglist(vector<string> imglist, int htype)
             
         } else {
             
-            datapoint = ph_malloc_datapoint(UINT64ARRAY);
+            datapoint = new DP; 
+            datapoint->hash_type = UINT64ARRAY;
             datapoint->hash_length = 1;
             datapoint->hash = (void*) hash;
             datapoint->id = new char [imglist[i].length() + 1];
@@ -117,10 +120,10 @@ vector<DP*> hash_imglist(vector<string> imglist, int htype)
  
 */
 
-DP* hash_image(const char* path, int htype)
+DP* hash_image(const char* path, uint htype)
 {
     fs::path imgpath(path);
-    boost::regex search_criteria("\.(gif|jpg|jpeg|png|bmp)$", 
+    boost::regex search_criteria(".(gif|jpg|jpeg|png|bmp)$", 
                                  boost::regex::perl|boost::regex::icase);
     ulong64* hash;
     DP* datapoint;
@@ -134,7 +137,8 @@ DP* hash_image(const char* path, int htype)
             return NULL;
         }
         
-        datapoint = ph_malloc_datapoint(UINT64ARRAY);
+        datapoint = new DP;
+        datapoint->hash_type = UINT64ARRAY;
         datapoint->hash_length = 1;
         datapoint->hash = (void*) hash;
         datapoint->id = new char [imgpath.string().length() + 1];

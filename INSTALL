@@ -1,0 +1,24 @@
+
+Prerequisites:
+     
+     Libraries:
+        1. Boost (version 1.42.0.1 or better) and headers for the same.
+        2. pHash (version 0.9.0-2 or better)  and headers for the same.
+
+     Tools:
+        1. cmake (version 2.6 or better; I used 2.8.2)
+        2. A C++ compiler (such as g++)
+        3. A build system that cmake can generate instructions for 
+        (like GNU's make/autotools)
+
+
+Build:
+     1. Optionally configure cmake to build targets for your 
+        preferred build system.
+     2. Run cmake on the imgfind/ directory
+     3. Run make in the imgfind directory 
+        (or use your build system of choice)
+
+Install:
+     4. Copy the imgfind executable to wherever your system keeps 
+        application binaries.

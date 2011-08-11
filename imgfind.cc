@@ -21,17 +21,85 @@
 
 #include "kernel/search.h"
 #include <iostream>
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
+
+namespace fs = boost::filesystem;
 
 int main (int argc, char **argv)
 {
   /* do the work */
-    DP* img;
-    vector<DP*> templist;
+    DP* search_criteria;
+    vector<DP*> dplist;
+    vector<string> temp_path_list;
+    vector<string> full_path_list;
     vector<string> matches;
     
-    templist = hash_imglist(cr_imglist("/mnt/shared/"), 0);
-    img = hash_image("/mnt/shared/kitty.gif", 0);
-    matches = find_similar(img, templist, 26);
+    //try to open directories / or if none given try to open cwd. also usage.
+    if ( argc < 2 ) {
+        cout << "Usage: imgfind [dir...] search_criteria" << endl 
+             << endl
+             << "dir is a directory/list of directories to be searched"
+             << "; defaults to current directory." << endl
+             << "search_criteria is a path to a valid image file "
+             << "(jpeg gif png bmp); no default, is required" << endl << endl;
+    } else if ( argc < 3 ) {
+        
+        try { 
+            full_path_list = cr_imglist(fs::current_path().string().c_str());
+        } catch (fs::filesystem_error ex) {         
+            cout << "imgfind: " << ex.what() << endl;
+        }
+        
+    } else {
+        
+       for (int i = 1; i < argc-1; i++) {
+           try {    
+               temp_path_list = cr_imglist(argv[i]);
+           } catch (fs::filesystem_error ex) {
+               cout << "imgfind: " << ex.what() << endl;
+               continue;
+           }
+                //non-obvious append operation.
+           full_path_list.insert(full_path_list.end(),
+                                 temp_path_list.begin(),
+                                 temp_path_list.end());
+        }
+    }
+    
+    if (full_path_list.empty()) {
+        return 0;
+    }
+    
+    
+    // try to open and hash the criteria image
+    try { 
+        search_criteria = hash_image(argv[argc-1], 0); 
+    } catch (fs::filesystem_error ex) {
+        cout << "imgfind: " << ex.what() << endl;
+        return -1;
+    }
+    
+    if (search_criteria == NULL) {
+        cout << "imgfind: Criteria invalid or not accessible." << endl;
+        return 0;
+    }
+    
+    
+    dplist = hash_imglist(full_path_list, 0);
+    
+    if (dplist.empty()) {
+        //no datapoints? something must be wrong.
+        return -1;
+    }
+  
+    // test criteria against hashlist; print path to matching files if found
+    matches = find_similar(search_criteria, dplist, 26);
+    
+    if (matches.empty()) {
+        //no matches
+        return 0;
+    }
     
     for (uint i = 0; i < matches.size(); i++)
         cout << matches[i] << std::endl;

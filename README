@@ -1,7 +1,6 @@
-	imgfind - Searches for similar image files.
+ imgfind - Searches for similar image files.
 
-
-
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   Copyright (C) 2011 Joseph Woodruff
 
   imgfind is free software; you can redistribute it and/or modify
@@ -18,6 +17,70 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-Comments are welcome.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	- Joseph Woodruff <jawoodru@cs.pdx.edu>
+INSTALL:
+  Build and installation instructions included in INSTALL file.
+
+USAGE:
+
+  Usage: imgfind [path...] search_criteria
+
+         path is a path to a directory or image file.
+            Default is the current working directory.
+
+         search_criteria is a file of gif, jpeg, png or bmp format
+
+
+HOW (DESIGN):
+
+    imgfind uses the pHash perceptual hashing library to generate 
+    non-avalanching discrete cosine transform-based hash values of images, 
+    for which hamming distances are be computed to determine similarity.
+
+    The hashing algorithms the pHash library are designed to be robust against 
+    rotation, skew and contrast adjustments and should also be resistant to
+    some degree against scaling. The default settings for the hamming distance
+    similarity criteria will tend to produce some false positives against a
+    non-trivial image collection; this is by design, to reduce the possibility 
+    of false negatives. Thus, I wouldn't incorporate imgfind into an automated 
+    file deduplication script, or at least not one that didn't enforce 
+    manual/interactive checking of the results ;)
+
+    imgfind is written in C++, and makes considerable use the STL, boost, and 
+    C++ standard classes such as string. Unfortunately, pHash is written 
+    predominantly in standard C, without any of the helpful features provided 
+    by C++, like classes or the automated memory management they provide. 
+    This has, unsurprisingly, presented some challenges with regards to 
+    integrating the two. It is my hope that I will, in my copious free 
+    time, be able to write a class-based wrapper around the pHash API to make 
+    it easier to incorporate into object-oriented C++ applications. 
+    For now though, I'll make due with what I have.
+
+WHY?:
+
+    To be perfectly honest, I've been using imageboards since high school, 
+    and now have what constitutes an unmanageably large collection of 
+    image macros, funny cat pictures and other assorted mental detritus. I'll 
+    often see images I want to download and think "wait, don't I already have 
+    that (or some variant of it) saved somewhere, taking up space on the hard 
+    disk?". Unfortunately, image files such as these don't usually contain any 
+    relevant searchable metadata describing their contents, which leaves me 
+    having to manually inspect the directory or directories where I think 
+    duplicates might be.
+
+    Not anymore; though. Now I have written this, a nice little search utility 
+    modeled after the classic UNIX find, that I can use to search files by 
+    their actual contents. It can detect duplicates and even images which are 
+    merely 'similar' (my own tests of this have shown that using pHash's 
+    suggested values for hamming distance it can reliably pick out image macros 
+    using the same image with different texts and the like).
+
+    I imagine this could also eventually be useful for digital forensics and 
+    copyright enforcement applications, if one were so inclined. In any event,
+    happy image hunting.
+
+
+Comments are welcome; patches / pull requests are even more welcome.
+
+	- Joseph Woodruff <jawoodru@cs.pdx.edu> (aka sectoidman)

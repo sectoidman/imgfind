@@ -24,7 +24,8 @@ set ( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 project (imgfind)
 set ( imgfind_VERSION_MAJOR 0 )
-set ( imgfind_VERSION_MINOR 1 )
+set ( imgfind_VERSION_MINOR 0 )
+set ( imgfind_VERSION_PATCH 1 )
 
 set ( SOURCES imgfind.cc kernel/search.cc )
 
