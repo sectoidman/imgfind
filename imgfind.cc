@@ -60,10 +60,15 @@ int main (int argc, char **argv)
                cout << "imgfind: " << ex.what() << endl;
                continue;
            }
-                //non-obvious append operation.
+           
+           if (temp_path_list.empty()) {
+               cout << "imgfind: No image files found in " << argv[i] << endl;
+           } else {
+           //non-obvious append operation.
            full_path_list.insert(full_path_list.end(),
                                  temp_path_list.begin(),
                                  temp_path_list.end());
+           }
         }
     }
     
