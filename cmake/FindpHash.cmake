@@ -19,9 +19,9 @@
 #
 
 
-find_path ( pHash_INCLUDE_DIRS pHash.h /usr/include "$ENV{NAMER_ROOT}" )
+find_path ( pHash_INCLUDE_DIRS pHash.h "$ENV{NAMER_ROOT}" )
 
-find_library ( pHash_LIBRARIES libpHash /usr/lib "$ENV{NAMER_ROOT}" )
+find_library ( pHash_LIBRARIES libpHash "$ENV{NAMER_ROOT}" )
 
 set ( pHash_FOUND TRUE )
  
