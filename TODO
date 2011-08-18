@@ -1,6 +1,7 @@
 imgfind.cc:
 
     General:
+              1. Add command-line options parser or similar (portable version of getopt()?).
 
     main():
 
