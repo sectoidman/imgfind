@@ -17,7 +17,29 @@
 #  along with this program; if not, write to the Free Software Foundation,
 #  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
 #
+
+#  Possible build configurations:
+#  
+#  debug:  
+#           Generates un-optimized (-O0) code with debugging symbols.
+# 
+#  release:
+#           Enables reasonable compiler optimizations and 
+#           strips the generated binary of symbols to reduce size.
 #
+#           This is the default option.
+#            
+#           reldbg enables optimizations and includes debugging
+#           symbols.
+#
+#  hiperf:
+#           Enables most/all available compiler optimizations, 
+#           regardless of safety or standards compliance.
+#
+#           hiperfd enables these optimizations and includes debugging
+#           symbols (though they may not be useful for much except 
+#           profiling).
+
 
 cmake_minimum_required (VERSION 2.6)
 set ( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -29,7 +51,13 @@ set ( imgfind_VERSION_PATCH 1 )
 
 set ( SOURCES imgfind.cc kernel/search.cc )
 
-set ( CMAKE_CXX_FLAGS "-Wall -O2" )
+set ( CMAKE_CXX_FLAGS "-Wall" )
+set ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g" )
+set ( CMAKE_CXX_FLAGS_RELDBG "-O2 -g" )
+set ( CMAKE_CXX_FLAGS_RELEASE "-O2 -s" )
+set ( CMAKE_CXX_FLAGS_HIPERF "-O3 -s -ffast-math" )
+set ( CMAKE_CXX_FLAGS_HIPERFD "-O3 -g -ffast-math" )
+set ( CMAKE_CXX_FLAGS_DEFAULT ${CMAKE_CXX_FLAGS_RELEASE} )
 
 find_package ( pHash REQUIRED )
 find_package ( Boost REQUIRED )
