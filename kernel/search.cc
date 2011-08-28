@@ -23,6 +23,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/regex.hpp>
 #include "search.h"
+#include "workers.h"
 
 using namespace std;
 namespace fs = boost::filesystem;
@@ -79,35 +80,15 @@ vector<string> cr_imglist(const char* path)
 
 vector<DP*> hash_imglist(vector<string> imglist, uint htype) 
 {
-    uint imglist_sz = imglist.size();
-    ulong64* hash;
-    DP* datapoint;
     vector<DP*> dplist;
     
-    for (uint i = 0; i < imglist_sz; i++) {
-        
-        hash = new ulong64;
-        
-        if (ph_dct_imagehash(imglist[i].c_str(), *hash) == -1) {
-            
-            delete hash;
-            continue;
-            
-        } else {
-            
-            datapoint = new DP; 
-            datapoint->hash_type = UINT64ARRAY;
-            datapoint->hash_length = 1;
-            datapoint->hash = (void*) hash;
-            datapoint->id = new char [imglist[i].length() + 1];
-            strcpy(datapoint->id, imglist[i].c_str());
-            
-            dplist.push_back(datapoint);
-        }
-    }
+    dct_imagehash_w worker(imglist, dplist);
+    worker.start();
+    worker.join();
     
-    return dplist;
-        
+    dplist = worker.return_dplist();
+    
+    return dplist;       
 }
 
 
@@ -137,11 +118,12 @@ DP* hash_image(const char* path, uint htype)
             return NULL;
         }
         
-        datapoint = new DP;
-        datapoint->hash_type = UINT64ARRAY;
+        datapoint              = new DP;
+        datapoint->hash_type   = UINT64ARRAY;
         datapoint->hash_length = 1;
-        datapoint->hash = (void*) hash;
-        datapoint->id = new char [imgpath.string().length() + 1];
+        datapoint->hash        = (void*) hash;
+        datapoint->id          = new char [imgpath.string().length() + 1];
+        
         strcpy(datapoint->id, imgpath.string().c_str());
         
         return datapoint;
@@ -168,8 +150,9 @@ vector<string> find_similar(DP* criteria,
                             vector<DP*> hashlist, 
                             float range)
 {
-    uint hashlist_sz = hashlist.size();
+    uint hashlist_sz   = hashlist.size();
     int match_distance = (int) range;
+    
     string match_path;
     vector<string> similar_list;
     

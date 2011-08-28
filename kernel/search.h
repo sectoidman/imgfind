@@ -24,9 +24,7 @@
 
 #include <vector>
 #include <string>
-#include <map>
 #include <pHash.h>
-#include <boost/filesystem/exception.hpp>
 
 /*
   cr_imglist()

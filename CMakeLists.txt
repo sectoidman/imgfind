@@ -49,9 +49,9 @@ set ( imgfind_VERSION_MAJOR 0 )
 set ( imgfind_VERSION_MINOR 0 )
 set ( imgfind_VERSION_PATCH 1 )
 
-set ( SOURCES imgfind.cc kernel/search.cc )
+set ( SOURCES imgfind.cc kernel/search.cc kernel/dct_imagehash_w.cc )
 
-set ( CMAKE_CXX_FLAGS "-Wall" )
+set ( CMAKE_CXX_FLAGS "-Wall -Wno-unused" )
 set ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g" )
 set ( CMAKE_CXX_FLAGS_RELDBG "-O2 -g" )
 set ( CMAKE_CXX_FLAGS_RELEASE "-O2 -s" )
@@ -63,5 +63,10 @@ find_package ( pHash REQUIRED )
 find_package ( Boost REQUIRED )
 
 add_executable( imgfind ${SOURCES} )
-target_link_libraries (imgfind pHash boost_system boost_filesystem boost_regex)
+target_link_libraries ( imgfind 
+		        pHash 
+		        boost_system 
+                        boost_filesystem 
+                        boost_regex
+		        boost_thread )
 
