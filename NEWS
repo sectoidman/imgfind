@@ -1,2 +1,6 @@
+08/28/2011:
+            Added threading support via boost::threads.
+            Updated cmake build scripts. 
+
 08/11/2011:
             First working version of the program (v0.0.1) posted.

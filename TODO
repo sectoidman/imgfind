@@ -1,7 +1,8 @@
 imgfind.cc:
 
     General:
-              1. Add command-line options parser or similar (portable version of getopt()?).
+                    1. Add command-line options parser or similar 
+                       (portable version of getopt()?).
 
     main():
 
@@ -9,6 +10,10 @@ imgfind.cc:
 kernel\search.*:
 
     General:
+                    1. Create object class(es) to encapsulate search routines.
+
+                    2. Use a more efficient data structure to hold image hashes
+                       and/or similarity information. (pHash MVP tree wrapper?)
 
     cr_imglist():
                     1. Try to find a portable libmagic or other 'magic number'-
@@ -18,17 +23,11 @@ kernel\search.*:
                        user-configurable.
 
     hash_imglist():
-                    1. Implement portable multithreading, possibly using boost
-                       or Intel TBB.
 
-                    2. Implement the other hash functions provided by pHash
+                    1. Implement the other hash functions provided by pHash
                        (Marr/'Mexican Hat' gaussian and Radial hashes).
 
-                    3. Implement a more efficient data-structure to hold the
-                       hash/filename data, possibly pHash's MVP tree with a c++ 
-                       wrapper.
-
-                    4. Add support for saving the generated data to improve
+                    2. Add support for saving the generated data to improve
                        reduce time on future runs.
 
     hash_image():
@@ -37,4 +36,13 @@ kernel\search.*:
 
     find_similar():
                     1. Implement support for the previously listed other hash
-                       functions
+                       functions.
+
+ kernel\workers.h:
+
+ kernel\*_w.cc:
+
+ CMakeLists.txt:
+
+    General:
+                    1. Add install configuration.

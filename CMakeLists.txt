@@ -31,14 +31,6 @@
 #            
 #           reldbg enables optimizations and includes debugging
 #           symbols.
-#
-#  hiperf:
-#           Enables most/all available compiler optimizations, 
-#           regardless of safety or standards compliance.
-#
-#           hiperfd enables these optimizations and includes debugging
-#           symbols (though they may not be useful for much except 
-#           profiling).
 
 
 cmake_minimum_required (VERSION 2.6)
@@ -55,8 +47,6 @@ set ( CMAKE_CXX_FLAGS "-Wall -Wno-unused" )
 set ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g" )
 set ( CMAKE_CXX_FLAGS_RELDBG "-O2 -g" )
 set ( CMAKE_CXX_FLAGS_RELEASE "-O2 -s" )
-set ( CMAKE_CXX_FLAGS_HIPERF "-O3 -s -ffast-math" )
-set ( CMAKE_CXX_FLAGS_HIPERFD "-O3 -g -ffast-math" )
 set ( CMAKE_CXX_FLAGS_DEFAULT ${CMAKE_CXX_FLAGS_RELEASE} )
 
 find_package ( pHash REQUIRED )

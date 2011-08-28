@@ -23,7 +23,6 @@
 #define	WORKER_H
 
 #include <pHash.h>
-#include <boost/bind.hpp>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
 

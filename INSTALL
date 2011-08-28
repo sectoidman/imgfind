@@ -15,6 +15,17 @@ Prerequisites:
 Build:
      1. Optionally configure cmake to build targets for your 
         preferred build system.
+
+        1.1. Optionally select which build target you want to use by calling
+              cmake with the '-DCMAKE_BUILD_TYPE=target_name' option.  
+
+             Available options include:
+             
+             debug      -  No optimizations, debugging symbols included.
+   (default) release    -  Standard (O2) optimizations, stripped executable.
+             reldbg     -  Standard (O2) optimizations, debugging symbols
+                           included.
+
      2. Run cmake on the imgfind/ directory
      3. Run make in the imgfind directory 
         (or use your build system of choice)
