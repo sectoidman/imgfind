@@ -24,10 +24,14 @@ kernel\search.*:
 
     hash_imglist():
 
-                    1. Implement the other hash functions provided by pHash
-                       (Marr/'Mexican Hat' gaussian and Radial hashes).
+                    1. Implement support for the other hash functions 
+                       provided by pHash (Marr/'Mexican Hat' gaussian 
+                       and Radial hashes).
 
-                    2. Add support for saving the generated data to improve
+                    2. Add support for SIFT/SURF-style object recognition
+                       algorithm. 
+
+                    3. Add support for saving the generated data to improve
                        reduce time on future runs.
 
     hash_image():
@@ -38,11 +42,18 @@ kernel\search.*:
                     1. Implement support for the previously listed other hash
                        functions.
 
- kernel\workers.h:
+kernel\workers.h:
+                    1. Document the functions described in this file.
 
- kernel\*_w.cc:
+                    2. Add worker classes for the other pHash algorithms.
 
- CMakeLists.txt:
+kernel\*_w.cc:
+
+CMakeLists.txt:
 
     General:
                     1. Add install configuration.
+
+                    2. Build and test on platforms other than 
+                       Debian GNU/Linux, to include Windows XP, 
+                       Windows 7 and Macintosh OS X. 
