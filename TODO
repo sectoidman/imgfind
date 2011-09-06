@@ -43,7 +43,7 @@ kernel\search.*:
                        functions.
 
 kernel\workers.h:
-                    1. Document the functions described in this file.
+                    1. Document the functions / classes described in this file.
 
                     2. Add worker classes for the other pHash algorithms.
 
